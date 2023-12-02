@@ -1,14 +1,11 @@
-import { useState } from "react";
 import "./App.css";
 
-import SignIn from "./pages/SignIn/index.jsx";
+import Navigation from "./navigation";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <div className="App">
-      <SignIn />
+      <Navigation />
     </div>
   );
 }
