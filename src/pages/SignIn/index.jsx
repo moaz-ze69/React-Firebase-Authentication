@@ -7,6 +7,10 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+import { auth } from "../../firebase";
+
 const theme = createTheme();
 
 export default function SignIn() {
@@ -21,7 +25,15 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event);
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredentials) => {
+        console.log(userCredentials);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     // const data = new FormData(event.currentTarget);
 
     // const username = data.get("username");
@@ -83,11 +95,11 @@ export default function SignIn() {
             <Typography component="h1" variant="h5">
               Sign In
             </Typography>
-            <form class="row g-3 login-form mt-1" action={handleSubmit}>
-              <div class="col-12">
+            <form className="row g-3 login-form mt-1" onSubmit={handleSubmit}>
+              <div className="col-12">
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   required
                   placeholder="Enter Email"
                   value={email}
@@ -95,10 +107,10 @@ export default function SignIn() {
                 />
               </div>
 
-              <div class="col-12">
+              <div className="col-12">
                 <input
                   type="password"
-                  class="form-control"
+                  className="form-control"
                   required
                   placeholder="Enter Password"
                   value={password}
@@ -106,8 +118,8 @@ export default function SignIn() {
                 />
               </div>
 
-              <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-outline-primary">
+              <div className="d-grid gap-2">
+                <button type="submit" className="btn btn-outline-primary">
                   Sign In
                 </button>
               </div>
