@@ -8,7 +8,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme();
 
-export default function SignUp() {
+export default function Home() {
   return (
     <div className="content-container d-flex align-items-center justify-content-center my-5 flex-column text-center">
       <ThemeProvider theme={theme}>
@@ -16,7 +16,7 @@ export default function SignUp() {
           <CssBaseline />
           <Box>
             <Typography component="h1" variant="h5">
-              SignUp
+              Home
             </Typography>
           </Box>
         </Container>
