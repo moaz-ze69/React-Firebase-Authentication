@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, Link, useLocation } from "react-router-dom";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -33,53 +33,6 @@ export default function SignIn() {
       .catch((error) => {
         console.log(error);
       });
-
-    // const data = new FormData(event.currentTarget);
-
-    // const username = data.get("username");
-    // const password = data.get("password");
-
-    // if (username === "") {
-    //   alert("Username Required");
-    //   setUsernameCheck(true);
-    // } else {
-    //   setUsernameCheck(false);
-    // }
-
-    // if (password === "") {
-    //   alert("Password Required");
-    //   setPasswordCheck(true);
-    // } else {
-    //   setPasswordCheck(false);
-    // }
-
-    // if (!usernameCheck && !passwordCheck) {
-    //   // setIsLoading(true);
-    //   alert("Here: " + username + " " + password);
-    //   // loginUser(
-    //   //   {
-    //   //     username: username,
-    //   //     password: password,
-    //   //   },
-    //   //   (response) => {
-    //   //     dispatch(setUser(response.data));
-    //   //     setSuccess(true);
-    //   //     navigate("/");
-    //   //   },
-    //   //   () => {
-    //   //     setFail(true);
-    //   //   },
-    //   //   () => {
-    //   //     setTimeout(() => {
-    //   //       setSuccess(false);
-    //   //     }, 2000);
-    //   //     setTimeout(() => {
-    //   //       setFail(false);
-    //   //     }, 2000);
-    //   //     setIsLoading(false);
-    //   //   }
-    //   // );
-    // }
   };
 
   // if (user.isAuthenticated) {
@@ -122,6 +75,11 @@ export default function SignIn() {
                 <button type="submit" className="btn btn-outline-primary">
                   Sign In
                 </button>
+              </div>
+              <div className="d-grid gap-2">
+                <Link to="/sign-up" className="navbar-brand">
+                  <a href="">Don't have an account? Sign up here</a>
+                </Link>
               </div>
             </form>
           </Box>
