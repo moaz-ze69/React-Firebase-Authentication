@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate, Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -7,9 +8,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 
 import { auth } from "../../firebase";
+
+import { setUser } from "../../stores/auth/authSlice";
 
 const theme = createTheme();
 
@@ -18,6 +24,8 @@ export default function SignUp() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.title = "Sign Up - React Firebase Authentication";
@@ -28,7 +36,7 @@ export default function SignUp() {
 
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-        console.log(userCredentials);
+        dispatch(setUser(userCredentials.user));
       })
       .catch((error) => {
         console.log(error);
@@ -77,9 +85,7 @@ export default function SignUp() {
               </div>
 
               <div className="d-grid gap-2">
-                <Link to="/sign-in" className="navbar-brand">
-                  <a href="">Already have an account? Sign in here</a>
-                </Link>
+                <Link to="/sign-in">Already have an account? Sign in here</Link>
               </div>
             </form>
           </Box>

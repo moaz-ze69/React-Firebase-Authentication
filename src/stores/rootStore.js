@@ -11,7 +11,7 @@ import {
   REGISTER,
 } from "redux-persist";
 
-import thunk from "redux-thunk";
+import { thunk } from "redux-thunk";
 
 import rootReducer from "./rootReducer";
 

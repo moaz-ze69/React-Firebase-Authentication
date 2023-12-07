@@ -1,8 +1,12 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+
+import { getUser } from "../stores/auth/authSlice";
 
 function Header() {
   const location = useLocation();
+  const user = useSelector(getUser);
 
   return (
     <nav
@@ -58,6 +62,7 @@ function Header() {
             </Link>
           </div>
         </div>
+        <div className="">{user.isAuthenticated ? "Login" : "Logout"}</div>
       </div>
     </nav>
   );

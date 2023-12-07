@@ -77,9 +77,7 @@ export default function SignIn() {
                 </button>
               </div>
               <div className="d-grid gap-2">
-                <Link to="/sign-up" className="navbar-brand">
-                  <a href="">Don't have an account? Sign up here</a>
-                </Link>
+                <Link to="/sign-up">Don't have an account? Sign up here</Link>
               </div>
             </form>
           </Box>
