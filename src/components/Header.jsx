@@ -3,6 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { getUser } from "../stores/auth/authSlice";
+import UserLoginProfileAvater from "./UserLoginProfileAvatar";
+import UserLogoutProfileAvater from "./UserLogoutProfileAvatar";
 
 function Header() {
   const location = useLocation();
@@ -62,7 +64,13 @@ function Header() {
             </Link>
           </div>
         </div>
-        <div className="">{user.isAuthenticated ? "Login" : "Logout"}</div>
+        <div>
+          {user.isAuthenticated ? (
+            <UserLoginProfileAvater name={user.user.email} />
+          ) : (
+            <UserLogoutProfileAvater />
+          )}
+        </div>
       </div>
     </nav>
   );

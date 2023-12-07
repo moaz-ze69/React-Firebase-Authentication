@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate, Link, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -8,10 +8,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import { auth } from "../../firebase";
 
@@ -37,6 +34,7 @@ export default function SignUp() {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         dispatch(setUser(userCredentials.user));
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
