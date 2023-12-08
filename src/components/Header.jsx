@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { getUser } from "../stores/auth/authSlice";
 import UserLoginProfileAvater from "./UserLoginProfileAvatar";
 import UserLogoutProfileAvater from "./UserLogoutProfileAvatar";
+import AccountMenu from "./AccountMenu";
 
 function Header() {
   const location = useLocation();
@@ -69,6 +70,7 @@ function Header() {
           </div>
         </div>
         <div>
+          {/* <UserLoginProfileAvater name="Moaz" /> */}
           {user.isAuthenticated ? (
             <UserLoginProfileAvater name={user.user.displayName} />
           ) : (
