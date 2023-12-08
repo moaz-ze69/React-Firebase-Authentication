@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate, Navigate, Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useNavigate, Navigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
@@ -13,12 +13,13 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { auth } from "../../firebase";
 
-import { setUser } from "../../stores/auth/authSlice";
+import { setUser, getUser } from "../../stores/auth/authSlice";
 
 const theme = createTheme();
 
 export default function SignIn() {
   let navigate = useNavigate();
+  const user = useSelector(getUser);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,9 +47,9 @@ export default function SignIn() {
       });
   };
 
-  // if (user.isAuthenticated) {
-  //   return <Navigate to="/" replace />;
-  // }
+  if (user.isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="content-container d-flex align-items-center justify-content-center my-5 flex-column text-center">
