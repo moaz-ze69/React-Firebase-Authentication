@@ -52,12 +52,19 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 }));
 
 function stringAvatar(name) {
-  return {
-    sx: {
-      bgcolor: stringToColor(name),
-    },
-    children: `${name.split(" ")[0][0]}`.toUpperCase(),
-  };
+  return name == null
+    ? {
+        sx: {
+          bgcolor: stringToColor("0000000000000000000"),
+        },
+        children: "",
+      }
+    : {
+        sx: {
+          bgcolor: stringToColor(name),
+        },
+        children: `${name.split(" ")[0][0]}`.toUpperCase(),
+      };
 }
 
 export default function UserLoginProfileAvater({ name }) {
