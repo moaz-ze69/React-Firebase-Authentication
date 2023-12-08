@@ -6,9 +6,10 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 
 import { auth } from "../../firebase";
 
@@ -19,8 +20,11 @@ const theme = createTheme();
 export default function SignUp() {
   let navigate = useNavigate();
 
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -30,14 +34,20 @@ export default function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-        dispatch(setUser(userCredentials.user));
-        navigate("/");
+        return updateProfile(userCredentials.user, {
+          displayName: name,
+        }).then(() => {
+          dispatch(setUser(userCredentials.user.providerData[0]));
+          setIsLoading(false);
+          navigate("/");
+        });
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
   };
 
@@ -57,6 +67,16 @@ export default function SignUp() {
             <form className="row g-3 login-form mt-1" onSubmit={handleSubmit}>
               <div className="col-12">
                 <input
+                  type="text"
+                  className="form-control"
+                  required
+                  placeholder="Enter Name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </div>
+              <div className="col-12">
+                <input
                   type="email"
                   className="form-control"
                   required
@@ -65,7 +85,6 @@ export default function SignUp() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-
               <div className="col-12">
                 <input
                   type="password"
@@ -77,11 +96,16 @@ export default function SignUp() {
                 />
               </div>
               <div className="d-grid gap-2">
-                <button type="submit" className="btn btn-outline-primary">
-                  Sign Up
-                </button>
+                {isLoading ? (
+                  <LoadingButton loading fullWidth variant="contained">
+                    Sign Up
+                  </LoadingButton>
+                ) : (
+                  <button type="submit" className="btn btn-outline-primary">
+                    Sign Up
+                  </button>
+                )}
               </div>
-
               <div className="d-grid gap-2">
                 <Link to="/sign-in">Already have an account? Sign in here</Link>
               </div>

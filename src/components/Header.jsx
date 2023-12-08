@@ -46,27 +46,31 @@ function Header() {
             >
               Home
             </Link>
-            <Link
-              to="/sign-in"
-              className={`nav-link ${
-                location.pathname === "/sign-in" ? "active" : ""
-              }`}
-            >
-              Sign In
-            </Link>
-            <Link
-              to="/sign-up"
-              className={`nav-link ${
-                location.pathname === "/sign-up" ? "active" : ""
-              }`}
-            >
-              Sign Up
-            </Link>
+            {!user.isAuthenticated && (
+              <>
+                <Link
+                  to="/sign-in"
+                  className={`nav-link ${
+                    location.pathname === "/sign-in" ? "active" : ""
+                  }`}
+                >
+                  Sign In
+                </Link>
+                <Link
+                  to="/sign-up"
+                  className={`nav-link ${
+                    location.pathname === "/sign-up" ? "active" : ""
+                  }`}
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
         <div>
           {user.isAuthenticated ? (
-            <UserLoginProfileAvater name={user.user.email} />
+            <UserLoginProfileAvater name={user.user.displayName} />
           ) : (
             <UserLogoutProfileAvater />
           )}

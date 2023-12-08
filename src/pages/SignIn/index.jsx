@@ -1,15 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate, Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 import { auth } from "../../firebase";
+
+import { setUser } from "../../stores/auth/authSlice";
 
 const theme = createTheme();
 
@@ -19,19 +23,26 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
     document.title = "Sign In - React Firebase Authentication";
   }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    setIsLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
-        console.log(userCredentials);
+        dispatch(setUser(userCredentials.user.providerData[0]));
+        setIsLoading(false);
+        navigate("/");
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
   };
 
@@ -72,9 +83,15 @@ export default function SignIn() {
               </div>
 
               <div className="d-grid gap-2">
-                <button type="submit" className="btn btn-outline-primary">
-                  Sign In
-                </button>
+                {isLoading ? (
+                  <LoadingButton loading fullWidth variant="contained">
+                    Sign In
+                  </LoadingButton>
+                ) : (
+                  <button type="submit" className="btn btn-outline-primary">
+                    Sign In
+                  </button>
+                )}
               </div>
               <div className="d-grid gap-2">
                 <Link to="/sign-up">Don't have an account? Sign up here</Link>
