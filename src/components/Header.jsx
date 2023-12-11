@@ -39,42 +39,47 @@ function Header() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div className="navbar-nav">
-            <Link
-              to="/"
-              className={`nav-link ${
-                location.pathname === "/" ? "active" : ""
-              }`}
+            <div
+              className="d-lg-flex align-items-center"
+              style={{ width: "85vw" }}
             >
-              Home
-            </Link>
-            {!user.isAuthenticated && (
-              <>
-                <Link
-                  to="/sign-in"
-                  className={`nav-link ${
-                    location.pathname === "/sign-in" ? "active" : ""
-                  }`}
-                >
-                  Sign In
-                </Link>
-                <Link
-                  to="/sign-up"
-                  className={`nav-link ${
-                    location.pathname === "/sign-up" ? "active" : ""
-                  }`}
-                >
-                  Sign Up
-                </Link>
-              </>
-            )}
+              <Link
+                to="/"
+                className={`nav-link ${
+                  location.pathname === "/" ? "active" : ""
+                }`}
+              >
+                Home
+              </Link>
+              {!user.isAuthenticated && (
+                <>
+                  <Link
+                    to="/sign-in"
+                    className={`nav-link ${
+                      location.pathname === "/sign-in" ? "active" : ""
+                    }`}
+                  >
+                    Sign In
+                  </Link>
+                  <Link
+                    to="/sign-up"
+                    className={`nav-link ${
+                      location.pathname === "/sign-up" ? "active" : ""
+                    }`}
+                  >
+                    Sign Up
+                  </Link>
+                </>
+              )}
+            </div>
+            <div className="d-flex justify-content-end">
+              {user.isAuthenticated ? (
+                <UserLoginProfileAvater name={user.user.displayName} />
+              ) : (
+                <UserLogoutProfileAvater />
+              )}
+            </div>
           </div>
-        </div>
-        <div>
-          {user.isAuthenticated ? (
-            <UserLoginProfileAvater name={user.user.displayName} />
-          ) : (
-            <UserLogoutProfileAvater />
-          )}
         </div>
       </div>
     </nav>
