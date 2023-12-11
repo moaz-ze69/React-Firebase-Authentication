@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { getUser } from "../stores/auth/authSlice";
 import UserLoginProfileAvater from "./UserLoginProfileAvatar";
 import UserLogoutProfileAvater from "./UserLogoutProfileAvatar";
-import AccountMenu from "./AccountMenu";
 
 function Header() {
   const location = useLocation();
