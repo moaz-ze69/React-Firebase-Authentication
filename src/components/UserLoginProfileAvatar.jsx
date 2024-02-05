@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
+import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
-import Box from "@mui/material/Box";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
